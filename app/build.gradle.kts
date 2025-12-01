@@ -44,6 +44,7 @@ dependencies {
     implementation(libs.converter.moshi)
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.moshi.kotlin)
     kapt(libs.moshi.kotlin.codegen)
     implementation(libs.androidx.lifecycle.livedata.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
