@@ -7,7 +7,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import java.util.Calendar
 
 class MovieViewModel(private val movieRepository: MovieRepository) : ViewModel() {
 
@@ -27,9 +29,15 @@ class MovieViewModel(private val movieRepository: MovieRepository) : ViewModel()
                 .catch {
                     _error.value = "An exception occurred: ${it.message}"
                 }
-                .collect {
-                    _popularMovies.value = it
+                .collect { movies ->
+                    val sortedMovies = movies.sortedByDescending { it.popularity }
+
+                    android.util.Log.d("MovieVM", "Before: ${movies.map { it.popularity }}")
+                    android.util.Log.d("MovieVM", "After : ${sortedMovies.map { it.popularity }}")
+
+                    _popularMovies.value = sortedMovies
                 }
         }
     }
+
 }
